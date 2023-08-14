@@ -1,0 +1,15 @@
+.TableWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  padding: 0 20px;
+
+  .Counter {
+    margin-bottom: 15px;
+  }
+
+  .ScrollBody {
+    overflow: scroll;
+    height: 200px;
+  }
+}
