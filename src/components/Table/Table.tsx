@@ -15,21 +15,23 @@ const Table: React.FC<AllProps> = (props: AllProps) => {
         <div className={classes.Counter}>
             { `Count: ${data.length}`  }
         </div>
-        <table>
-            <tr>
-                <th>Fall</th>
-                <th>ID</th>
-                <th>Mass</th>
-                <th>Name</th>
-                <th>NameType</th>
-                <th>recclass</th>
-                <th>reclat</th>
-                <th>reclong</th>
-                <th>year</th>
-            </tr>
+        <table className={classes.Table}>
+            <thead>
+                <tr>
+                    <th>Fall</th>
+                    <th>ID</th>
+                    <th>Mass</th>
+                    <th>Name</th>
+                    <th>NameType</th>
+                    <th>recclass</th>
+                    <th>reclat</th>
+                    <th>reclong</th>
+                    <th>year</th>
+                </tr>
+            </thead>
             <tbody className={classes.ScrollBody}>
             {
-                data && data.map((meteor: Meteor) => <tr>
+                data && data.map((meteor: Meteor) => <tr key={meteor.id}>
                     <td>{meteor.fall}</td>
                     <td>{meteor.id}</td>
                     <td>{meteor.mass}</td>

@@ -10,6 +10,32 @@
 
   .ScrollBody {
     overflow: scroll;
-    height: 200px;
+  }
+
+  .Table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: cursive;
+  }
+
+  .Table thead th {
+    background-color: #e6270b;
+    border: solid 1px #DDEEEE;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 200;
+  }
+
+  .Table tbody td {
+    border: solid 1px #DDEEEE;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 100;
+    text-shadow: -1px 1px 1px #ee0808;
   }
 }

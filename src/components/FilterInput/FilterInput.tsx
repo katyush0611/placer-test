@@ -2,6 +2,7 @@ import * as React from "react";
 import classes from './FilterInput.module.scss';
 
 interface OwnProps {
+    value?: string;
     title: string;
     onChange: (year: string) => void;
 }
@@ -9,11 +10,13 @@ interface OwnProps {
 type AllProps = OwnProps;
 
 const FilterInput: React.FC<AllProps> = (props: AllProps) => {
-    const {title, onChange} = props;
+    const {value, title, onChange} = props;
 
     return <div className={classes.FilterInput}>
-        <div>{title}:</div>
+        <div>{title}: </div>
         <input
+            className={classes.Input}
+            value={value}
             type="text"
             onChange={(e) => onChange(e.target.value)}
         />
