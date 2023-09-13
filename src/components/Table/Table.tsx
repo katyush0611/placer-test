@@ -1,7 +1,13 @@
 import * as React from "react";
-import classes from './Table.module.scss';
 import {Meteor} from "../../models/meteor";
-
+import {
+    TableWrapper,
+    StyledTable,
+    Counter,
+    ScrollBody,
+    StyledTh,
+    StyledTd
+} from './table-styled-components';
 interface OwnProps {
     data: Meteor[];
 }
@@ -11,41 +17,39 @@ type AllProps = OwnProps;
 const Table: React.FC<AllProps> = (props: AllProps) => {
     const {data} = props;
 
-    return <div className={classes.TableWrapper}>
-        <div className={classes.Counter}>
-            { `Count: ${data.length}`  }
-        </div>
-        <table className={classes.Table}>
+    return <TableWrapper>
+        <Counter>{ `Count: ${data.length}`  }</Counter>
+        <StyledTable>
             <thead>
                 <tr>
-                    <th>Fall</th>
-                    <th>ID</th>
-                    <th>Mass</th>
-                    <th>Name</th>
-                    <th>NameType</th>
-                    <th>recclass</th>
-                    <th>reclat</th>
-                    <th>reclong</th>
-                    <th>year</th>
+                    <StyledTh>Fall</StyledTh>
+                    <StyledTh>ID</StyledTh>
+                    <StyledTh>Mass</StyledTh>
+                    <StyledTh>Name</StyledTh>
+                    <StyledTh>NameType</StyledTh>
+                    <StyledTh>recclass</StyledTh>
+                    <StyledTh>reclat</StyledTh>
+                    <StyledTh>reclong</StyledTh>
+                    <StyledTh>year</StyledTh>
                 </tr>
             </thead>
-            <tbody className={classes.ScrollBody}>
+            <ScrollBody>
             {
                 data && data.map((meteor: Meteor) => <tr key={meteor.id}>
-                    <td>{meteor.fall}</td>
-                    <td>{meteor.id}</td>
-                    <td>{meteor.mass}</td>
-                    <td>{meteor.name}</td>
-                    <td>{meteor.nametype}</td>
-                    <td>{meteor.recclass}</td>
-                    <td>{meteor.reclat}</td>
-                    <td>{meteor.reclong}</td>
-                    <td>{meteor.year}</td>
+                    <StyledTd>{meteor.fall}</StyledTd>
+                    <StyledTd>{meteor.id}</StyledTd>
+                    <StyledTd>{meteor.mass}</StyledTd>
+                    <StyledTd>{meteor.name}</StyledTd>
+                    <StyledTd>{meteor.nametype}</StyledTd>
+                    <StyledTd>{meteor.recclass}</StyledTd>
+                    <StyledTd>{meteor.reclat}</StyledTd>
+                    <StyledTd>{meteor.reclong}</StyledTd>
+                    <StyledTd>{meteor.year}</StyledTd>
                 </tr>)
             }
-            </tbody>
-        </table>
-    </div>
+            </ScrollBody>
+        </StyledTable>
+    </TableWrapper>
 };
 
 export default Table;

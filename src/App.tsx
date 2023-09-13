@@ -4,17 +4,18 @@ import {Meteor} from "./models/meteor";
 import './App.module.scss';
 import classes from './App.module.scss';
 import useFetchData from "./hooks/useFetchData";
+import useFilterMeteors from "./hooks/useFilterMeteors";
 import EmptyState from "./components/EmptyState/EmptyState";
 import Header from "./components/Header/Header";
 import {FilterType} from "./models/filter-type.enum";
 
 const URL: string = "https://data.nasa.gov/resource/y77d-th95.json";
 function App() {
-    const { data, error } = useFetchData(URL);
-
     const [meteors, setMeteors] = useState<Meteor[]>([]);
     const [filteredYear, setFilteredYear] = useState<string>('');
     const [filteredMass, setFilteredMass] = useState<string>('');
+    const { data, error } = useFetchData(URL);
+    const {filterMeteors} = useFilterMeteors(meteors, filteredYear, filteredMass, setFilteredYear);
 
     useEffect(() => {
         if (data) {
@@ -26,7 +27,7 @@ function App() {
         }
     }, [data]);
 
-    const filteredMeteorsArr = useMemo(() => FilterMeteors(meteors, filteredYear, filteredMass, setFilteredYear), [filteredYear, filteredMass]);
+    const filteredMeteorsArr = useMemo(() => !filteredYear && !filteredMass ? meteors : filterMeteors(), [filteredYear, filteredMass]);
 
     const filterChanged = (type: FilterType, val: string): void => {
         switch (type) {
@@ -54,38 +55,4 @@ function App() {
     </div>
   );
 }
-
-const FilterMeteors = (meteors: Meteor[], year?: string, mass?: string, setFilteredYear?: any) => {
-    if (!year && !mass) {
-        return meteors;
-    }
-
-    const filteredMeteors: Meteor[] = meteors.filter((meteor: Meteor) => {
-        const byYear = meteor.year.toString() === year;
-        const byMass = mass && +meteor.mass >= +mass;
-        const byYearAndMass = byYear && byMass;
-
-        if (year && !mass) {
-            return byYear;
-        }
-        if (!year && mass) {
-            return byMass;
-        }
-        if (year && mass) {
-            return byYearAndMass;
-        }
-        return false;
-    });
-
-    if (mass && year && !filteredMeteors.length) {
-        const closestMeteor: Meteor | undefined = meteors.find((meteor: Meteor) => meteor.mass && +meteor.mass >= +mass);
-        if (closestMeteor) {
-            setFilteredYear(closestMeteor.year);
-            return [closestMeteor];
-        }
-        return [];
-    }
-    return filteredMeteors;
-};
-
 export default App;

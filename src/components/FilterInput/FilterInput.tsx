@@ -1,5 +1,6 @@
 import * as React from "react";
-import classes from './FilterInput.module.scss';
+import { memo } from "react";
+import {FilterInputWrapper, Input} from './filter-input-styled-components';
 
 interface OwnProps {
     value?: string;
@@ -12,15 +13,14 @@ type AllProps = OwnProps;
 const FilterInput: React.FC<AllProps> = (props: AllProps) => {
     const {value, title, onChange} = props;
 
-    return <div className={classes.FilterInput}>
+    return <FilterInputWrapper>
         <div>{title}: </div>
-        <input
-            className={classes.Input}
+        <Input
             value={value}
             type="text"
             onChange={(e) => onChange(e.target.value)}
         />
-    </div>
+    </FilterInputWrapper>
 };
 
-export default FilterInput;
+export default memo(FilterInput);
